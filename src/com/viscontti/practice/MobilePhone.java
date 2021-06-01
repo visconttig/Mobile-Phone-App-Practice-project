@@ -40,17 +40,30 @@ public class MobilePhone {
 
     public void addContact(){
         try {
-        //    scanner = new Scanner(System.in);
+            //    scanner = new Scanner(System.in);
             cleanScanner();
             System.out.println("Write the name: ");
             String name = scanner.nextLine();
-            System.out.println("Write the number: ");
-            int number = scanner.nextInt();
-            arrayContact.add(new Contacts(name, number));
+
+            if ((searchInternal(name)) == -1) { // If contact don't exist.
+                System.out.println("Write the number: ");
+                int number = scanner.nextInt();
+                arrayContact.add(new Contacts(name, number));
+            } else {
+                System.out.println("The contact already exist.\nDo you want to " +
+                        "update it? -enter 'Y' for yes, and 'N' for no.");
+                //  cleanScanner();
+                String option = scanner.nextLine();
+                if (option.trim().equalsIgnoreCase("y")) {
+                    updateContact();
+                } else {
+                    // do nothing (print menu)
+                }
+            }
 
 
         } catch (Exception e){
-           System.err.println( "EXCEPTION:" + e.getMessage());
+            System.err.println("EXCEPTION:" + e.getMessage());
         }
 
     }
